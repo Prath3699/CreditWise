@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Shield, LogOut, User } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from './context/AuthContext';
 
 const navLinks = [
   { name: 'Features', href: '#features' },
