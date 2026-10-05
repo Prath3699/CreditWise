@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const scoreRanges = [
   {
@@ -67,7 +67,7 @@ export default function ScoreRanges() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -84,12 +84,12 @@ export default function ScoreRanges() {
           <p className="mt-4 text-lg text-dark-400">
             Credit scores range from 300 to 850. Here's what each range means for your financial opportunities.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Score Ranges */}
         <div className="space-y-4">
           {scoreRanges.map((range, index) => (
-            <motion.div
+            <m.div
               key={range.label}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -118,7 +118,7 @@ export default function ScoreRanges() {
                     <span className={`text-sm font-medium ${range.textColor}`}>{range.percentage}%</span>
                   </div>
                   <div className="w-full h-2 bg-dark-800 rounded-full overflow-hidden">
-                    <motion.div
+                    <m.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${range.percentage}%` }}
                       viewport={{ once: true }}
@@ -149,7 +149,7 @@ export default function ScoreRanges() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

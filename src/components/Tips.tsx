@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Lightbulb, TrendingUp, CreditCard, FileText, PiggyBank, Calendar } from 'lucide-react';
 
 const tips = [
@@ -56,7 +56,7 @@ export default function Tips() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -73,12 +73,12 @@ export default function Tips() {
           <p className="mt-4 text-lg text-dark-400">
             Follow these proven strategies to improve your credit score quickly and sustainably.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Tips Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tips.map((tip, index) => (
-            <motion.div
+            <m.div
               key={tip.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export default function Tips() {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{tip.title}</h3>
               <p className="text-dark-400 text-sm leading-relaxed">{tip.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

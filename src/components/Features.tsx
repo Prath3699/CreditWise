@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Shield, TrendingUp, Bell, PieChart, Lock, Clock } from 'lucide-react';
 
 const features = [
@@ -74,7 +74,7 @@ export default function Features() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -92,10 +92,10 @@ export default function Features() {
             Our comprehensive tools give you full visibility into your credit health, 
             helping you make informed financial decisions.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Features Grid */}
-        <motion.div
+        <m.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -103,7 +103,7 @@ export default function Features() {
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {features.map((feature) => (
-            <motion.div
+            <m.div
               key={feature.title}
               variants={cardVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
@@ -119,9 +119,9 @@ export default function Features() {
                 <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
                 <p className="text-dark-400 text-sm leading-relaxed">{feature.description}</p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

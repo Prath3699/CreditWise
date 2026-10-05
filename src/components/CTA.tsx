@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, Shield, Star } from 'lucide-react';
 
 export default function CTA() {
@@ -12,7 +12,7 @@ export default function CTA() {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -48,7 +48,7 @@ export default function CTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <motion.a
+            <m.a
               href="#checker"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -56,13 +56,13 @@ export default function CTA() {
             >
               Get My Free Score
               <ArrowRight className="w-5 h-5" />
-            </motion.a>
+            </m.a>
             <div className="flex items-center gap-2 text-dark-400 text-sm">
               <Shield className="w-4 h-4 text-success" />
               <span>No credit card required • 100% free</span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

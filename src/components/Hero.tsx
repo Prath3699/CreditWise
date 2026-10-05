@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
 import CreditScoreGauge from './CreditScoreGauge';
 
@@ -16,15 +16,10 @@ export default function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="text-center lg:text-left"
-          >
+          {/* Left Content (heading and copy render immediately — they're the LCP element) */}
+          <div className="text-center lg:text-left">
             {/* Badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -32,7 +27,7 @@ export default function Hero() {
             >
               <Zap className="w-4 h-4" />
               Free Credit Score Check
-            </motion.div>
+            </m.div>
 
             {/* Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
@@ -47,59 +42,65 @@ export default function Hero() {
               discover improvement tips, and unlock better rates on loans and credit cards.
             </p>
 
-            {/* Stats */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-8">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-success" />
+            <m.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+            >
+              {/* Stats */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-8">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-success" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">2M+</p>
+                    <p className="text-dark-500 text-xs">Users Checked</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-white font-semibold">2M+</p>
-                  <p className="text-dark-500 text-xs">Users Checked</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-primary-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">256-bit</p>
+                    <p className="text-dark-500 text-xs">Encrypted</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-primary-400" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold">256-bit</p>
-                  <p className="text-dark-500 text-xs">Encrypted</p>
-                </div>
-              </div>
-            </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start">
-              <motion.a
-                href="#checker"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-semibold bg-gradient-to-r from-primary-600 to-accent-600 rounded-2xl shadow-xl shadow-primary-600/25 hover:shadow-primary-500/40 transition-shadow duration-300"
-              >
-                Check My Score Free
-                <ArrowRight className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="#features"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-dark-300 font-semibold border border-white/10 rounded-2xl hover:bg-white/5 hover:border-white/20 transition-all duration-300"
-              >
-                Learn More
-              </motion.a>
-            </div>
-          </motion.div>
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start">
+                <m.a
+                  href="#checker"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-semibold bg-gradient-to-r from-primary-600 to-accent-600 rounded-2xl shadow-xl shadow-primary-600/25 hover:shadow-primary-500/40 transition-shadow duration-300"
+                >
+                  Check My Score Free
+                  <ArrowRight className="w-5 h-5" />
+                </m.a>
+                <m.a
+                  href="#features"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 text-dark-300 font-semibold border border-white/10 rounded-2xl hover:bg-white/5 hover:border-white/20 transition-all duration-300"
+                >
+                  Learn More
+                </m.a>
+              </div>
+            </m.div>
+          </div>
 
           {/* Right - Credit Score Gauge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
             className="flex justify-center lg:justify-end"
           >
             <CreditScoreGauge score={742} />
-          </motion.div>
+          </m.div>
         </div>
       </div>
 

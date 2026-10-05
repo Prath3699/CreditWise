@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface CreditScoreGaugeProps {
   score: number;
@@ -49,7 +49,7 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             strokeLinecap="round"
           />
           {/* Score arc */}
-          <motion.path
+          <m.path
             d={`M 20 ${size / 2 + 20} A ${radius} ${radius} 0 0 1 ${size - 20} ${size / 2 + 20}`}
             fill="none"
             stroke={color}
@@ -62,7 +62,7 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             style={{ filter: `drop-shadow(0 0 8px ${color}40)` }}
           />
           {/* Score text */}
-          <motion.text
+          <m.text
             x={size / 2}
             y={size / 2 - 10}
             textAnchor="middle"
@@ -73,8 +73,8 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             transition={{ delay: 1.5 }}
           >
             {score}
-          </motion.text>
-          <motion.text
+          </m.text>
+          <m.text
             x={size / 2}
             y={size / 2 + 25}
             textAnchor="middle"
@@ -85,14 +85,14 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             transition={{ delay: 1.8 }}
           >
             {getScoreLabel(score)}
-          </motion.text>
+          </m.text>
           {/* Scale labels */}
           <text x="25" y={size / 2 + 38} className="fill-dark-500" style={{ fontSize: '11px' }}>300</text>
           <text x={size - 40} y={size / 2 + 38} className="fill-dark-500" style={{ fontSize: '11px' }}>850</text>
         </svg>
 
         {/* Score details */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2 }}
@@ -103,7 +103,7 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             <span className="text-success font-medium">98%</span>
           </div>
           <div className="w-full h-1.5 bg-dark-800 rounded-full overflow-hidden">
-            <motion.div
+            <m.div
               initial={{ width: 0 }}
               animate={{ width: '98%' }}
               transition={{ delay: 2.2, duration: 1 }}
@@ -115,7 +115,7 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             <span className="text-primary-400 font-medium">23%</span>
           </div>
           <div className="w-full h-1.5 bg-dark-800 rounded-full overflow-hidden">
-            <motion.div
+            <m.div
               initial={{ width: 0 }}
               animate={{ width: '77%' }}
               transition={{ delay: 2.4, duration: 1 }}
@@ -127,14 +127,14 @@ export default function CreditScoreGauge({ score, size = 280 }: CreditScoreGauge
             <span className="text-accent-400 font-medium">7 years</span>
           </div>
           <div className="w-full h-1.5 bg-dark-800 rounded-full overflow-hidden">
-            <motion.div
+            <m.div
               initial={{ width: 0 }}
               animate={{ width: '65%' }}
               transition={{ delay: 2.6, duration: 1 }}
               className="h-full bg-accent-400 rounded-full"
             />
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

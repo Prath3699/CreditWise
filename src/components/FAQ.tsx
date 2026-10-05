@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
@@ -44,7 +44,7 @@ export default function FAQ() {
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,12 +61,12 @@ export default function FAQ() {
           <p className="mt-4 text-lg text-dark-400">
             Everything you need to know about credit scores and how to improve them.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* FAQ Items */}
         <div className="space-y-3">
           {faqs.map((faq, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -79,17 +79,17 @@ export default function FAQ() {
                 className="w-full flex items-center justify-between p-5 text-left"
               >
                 <span className="text-white font-medium pr-4">{faq.question}</span>
-                <motion.div
+                <m.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
                   className="shrink-0"
                 >
                   <ChevronDown className="w-5 h-5 text-dark-400" />
-                </motion.div>
+                </m.div>
               </button>
               <AnimatePresence>
                 {openIndex === index && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -99,10 +99,10 @@ export default function FAQ() {
                     <div className="px-5 pb-5 text-dark-400 text-sm leading-relaxed border-t border-white/5 pt-4">
                       {faq.answer}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

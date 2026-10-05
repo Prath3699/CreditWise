@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { CheckCircle, AlertCircle, ChevronRight, Loader2 } from 'lucide-react';
 import CreditScoreGauge from './CreditScoreGauge';
 
@@ -110,7 +110,7 @@ export default function ScoreChecker() {
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -127,7 +127,7 @@ export default function ScoreChecker() {
           <p className="mt-4 text-lg text-dark-400">
             Get an estimated credit score in just a few steps. No impact to your actual credit.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Progress Steps */}
         <div className="flex items-center justify-center gap-2 mb-10">
@@ -163,14 +163,14 @@ export default function ScoreChecker() {
         </div>
 
         {/* Form Card */}
-        <motion.div
+        <m.div
           layout
           className="glass-card rounded-3xl p-6 sm:p-8 lg:p-10"
         >
           <AnimatePresence mode="wait">
             {/* Step 1 */}
             {currentStep === 1 && (
-              <motion.div
+              <m.div
                 key="step1"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -230,12 +230,12 @@ export default function ScoreChecker() {
                   Continue
                   <ChevronRight className="w-4 h-4" />
                 </button>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Step 2 */}
             {currentStep === 2 && (
-              <motion.div
+              <m.div
                 key="step2"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -320,12 +320,12 @@ export default function ScoreChecker() {
                     )}
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             )}
 
             {/* Step 3 - Results */}
             {currentStep === 3 && score !== null && (
-              <motion.div
+              <m.div
                 key="step3"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -364,10 +364,10 @@ export default function ScoreChecker() {
                 >
                   Check Again
                 </button>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
