@@ -1,10 +1,24 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Star } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
-export default function CTA() {
+interface CTAProps {
+  onOpenAuth: () => void;
+}
+
+export default function CTA({ onOpenAuth }: CTAProps) {
+  const { isAuthenticated } = useAuth();
+
+  const handleClick = () => {
+    if (isAuthenticated) {
+      document.getElementById('checker')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      onOpenAuth();
+    }
+  };
+
   return (
     <section className="relative py-24 bg-dark-900 overflow-hidden">
-      {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl" />
@@ -18,7 +32,6 @@ export default function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {/* Trust badges */}
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -48,15 +61,15 @@ export default function CTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-            <motion.a
-              href="#checker"
+            <motion.button
+              onClick={handleClick}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold bg-gradient-to-r from-primary-600 to-accent-600 rounded-2xl shadow-xl shadow-primary-600/25 hover:shadow-primary-500/40 transition-shadow"
             >
-              Get My Free Score
+              {isAuthenticated ? 'Check My Score' : 'Get My Free Score'}
               <ArrowRight className="w-5 h-5" />
-            </motion.a>
+            </motion.button>
             <div className="flex items-center gap-2 text-dark-400 text-sm">
               <Shield className="w-4 h-4 text-success" />
               <span>No credit card required • 100% free</span>
