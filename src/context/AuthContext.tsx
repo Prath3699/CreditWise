@@ -29,6 +29,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (storedToken && storedUser) {
       setToken(storedToken);
       setUser(JSON.parse(storedUser));
+
+      // Validate the stored JWT against the backend; clear session if invalid/expired
+      authAPI.getMe()
+        .then((me: User) => {
+          if (me && me._id) {
+            const fresh = { _id: me._id, name: me.name, email: me.email };
+            setUser(fresh);
+            localStorage.setItem('user', JSON.stringify(fresh));
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          setToken(null);
+          setUser(null);
+        });
     }
   }, []);
 

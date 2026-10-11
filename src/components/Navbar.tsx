@@ -41,8 +41,8 @@ export default function Navbar({ onOpenAuth }: NavbarProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="relative">
+          <a href="#top" aria-label="CredWise home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-2 group">
+            <div className="relative pointer-events-none">
               <Shield className="w-8 h-8 text-primary-500 group-hover:text-primary-400 transition-colors" />
               <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-lg group-hover:bg-primary-400/30 transition-colors" />
             </div>
