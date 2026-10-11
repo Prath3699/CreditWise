@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, AlertCircle, ChevronRight, Loader2, LogIn } from 'lucide-react';
 import CreditScoreGauge from './CreditScoreGauge';
 import ScoreHistory from './ScoreHistory';
+import ScoreSimulator from './ScoreSimulator';
 import { scoresAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -414,6 +415,8 @@ export default function ScoreChecker({ onOpenAuth }: ScoreCheckerProps) {
                     Check Again
                   </button>
                 </div>
+
+                <ScoreSimulator baseScore={score} />
 
                 <ScoreHistory />
               </motion.div>

@@ -108,6 +108,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                       <input
+                        aria-label="Full Name"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -125,6 +126,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                     <input
+                      aria-label="Email Address"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -142,6 +144,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                     <input
+                      aria-label="Password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/smoke.mjs"
+    "test": "node scripts/smoke.mjs",
+    "test:unit": "vitest run",
+    "test:smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
@@ -25,14 +27,19 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.7",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "@types/canvas-confetti": "^1.6.4",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^29.1.1",
     "playwright": "^1.40.0",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.7.0",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^4.1.11"
   }
 }

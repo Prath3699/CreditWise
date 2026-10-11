@@ -53,6 +53,66 @@ export const calculateScore = async (req, res) => {
   }
 };
 
+// Score Simulator: predicts score changes from hypothetical actions (no DB write)
+export const simulateScore = async (req, res) => {
+  try {
+    const { currentScore, cardDebt = 0, creditLimit = 10000, payoffAmount = 0, onTimePayments6mo = 0, newCreditInquiries = 0 } = req.body;
+
+    if (typeof currentScore !== 'number' || currentScore < 300 || currentScore > 850) {
+      return res.status(400).json({ message: 'currentScore must be a number between 300 and 850' });
+    }
+    const nums = { cardDebt, creditLimit, payoffAmount, onTimePayments6mo, newCreditInquiries };
+    for (const [k, v] of Object.entries(nums)) {
+      if (typeof v !== 'number' || !Number.isFinite(v) || v < 0) {
+        return res.status(400).json({ message: `${k} must be a non-negative number` });
+      }
+    }
+
+    let projected = currentScore;
+    const impacts = [];
+
+    // Credit utilization improvement (30% weight factor)
+    const limit = Math.max(creditLimit, 1);
+    const utilBefore = Math.min(cardDebt / limit, 2);
+    const utilAfter = Math.min(Math.max(cardDebt - payoffAmount, 0) / limit, 2);
+    if (payoffAmount > 0) {
+      const gain = Math.round((utilBefore - utilAfter) * 90); // up to ~+90 at full payoff of high util
+      if (gain > 0) {
+        projected += gain;
+        impacts.push({ action: `Pay $${payoffAmount.toLocaleString()} toward card debt`, delta: gain, detail: `Utilization drops from ${Math.round(utilBefore * 100)}% to ${Math.round(utilAfter * 100)}%` });
+      }
+    }
+
+    // On-time payments (max +40 over 6 months)
+    if (onTimePayments6mo > 0) {
+      const gain = Math.min(onTimePayments6mo, 6) * 7;
+      projected += gain;
+      impacts.push({ action: `${Math.min(onTimePayments6mo, 6)} months of on-time payments`, delta: gain, detail: 'Payment history is 35% of your score' });
+    }
+
+    // New credit inquiries penalty (max -30)
+    if (newCreditInquiries > 0) {
+      const loss = Math.min(newCreditInquiries, 6) * 5;
+      projected -= loss;
+      impacts.push({ action: `${newCreditInquiries} new credit application(s)`, delta: -loss, detail: 'Hard inquiries temporarily lower your score' });
+    }
+
+    projected = Math.min(850, Math.max(300, projected));
+
+    const labelFor = (s) => (s >= 750 ? 'Excellent' : s >= 700 ? 'Good' : s >= 650 ? 'Fair' : s >= 550 ? 'Poor' : 'Very Poor');
+    res.json({
+      currentScore,
+      projectedScore: projected,
+      delta: projected - currentScore,
+      currentLabel: labelFor(currentScore),
+      projectedLabel: labelFor(projected),
+      impacts,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 export const getScoreHistory = async (req, res) => {
   try {
     const scores = await CreditScore.find({ user: req.user._id })

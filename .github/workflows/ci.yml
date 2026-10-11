@@ -19,6 +19,8 @@ jobs:
         run: npm ci
       - name: Typecheck
         run: npm run typecheck
+      - name: Unit tests (Vitest)
+        run: npx vitest run
       - name: Build
         run: npm run build
       - name: Install backend deps
