@@ -1,7 +1,15 @@
-# local data & env
-.env
-.mongodb-data/
-backend/.env
+# dependencies
 node_modules/
+
+# build output
+dist/
+
+# local data & env (never commit)
+.env
+.env.*
+backend/.env
+.mongodb-data/
+
+# logs
 logs/
 *.log
