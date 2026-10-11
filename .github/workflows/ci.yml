@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install frontend deps
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Install backend deps
+        working-directory: backend
+        run: npm ci
+      - name: Start backend + smoke test API
+        run: |
+          cd backend
+          MONGO_URI="" JWT_SECRET=test-secret node server.js &
+          sleep 6
+          curl -sf http://localhost:5000/api/health | grep -q '"status":"ok"'
