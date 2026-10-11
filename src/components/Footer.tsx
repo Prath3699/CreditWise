@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="#" className="flex items-center gap-2 mb-4">
               <Shield className="w-7 h-7 text-primary-500" />
               <span className="text-lg font-bold text-white">
-                Credit<span className="gradient-text">Wise</span>
+                Cred<span className="gradient-text">Wise</span>
               </span>
             </a>
             <p className="text-sm text-dark-400 leading-relaxed mb-4">

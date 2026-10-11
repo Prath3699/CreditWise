@@ -47,7 +47,7 @@ export default function Navbar({ onOpenAuth }: NavbarProps) {
               <div className="absolute inset-0 bg-primary-500/20 rounded-full blur-lg group-hover:bg-primary-400/30 transition-colors" />
             </div>
             <span className="text-xl font-bold text-white">
-              Credit<span className="gradient-text">Wise</span>
+              Cred<span className="gradient-text">Wise</span>
             </span>
           </a>
 
