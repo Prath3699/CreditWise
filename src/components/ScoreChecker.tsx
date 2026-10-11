@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, AlertCircle, ChevronRight, Loader2, LogIn } from 'lucide-react';
 import CreditScoreGauge from './CreditScoreGauge';
 import ScoreHistory from './ScoreHistory';
+import ScoreSimulator from './ScoreSimulator';
 import { scoresAPI } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -267,7 +268,8 @@ export default function ScoreChecker({ onOpenAuth }: ScoreCheckerProps) {
 
                 <button
                   onClick={handleNext}
-                  className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-white font-medium bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl hover:from-primary-500 hover:to-primary-400 transition-all shadow-lg shadow-primary-600/20"
+                  disabled={isChecking}
+                  className="mt-6 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 text-white font-medium bg-gradient-to-r from-primary-600 to-primary-500 rounded-xl hover:from-primary-500 hover:to-primary-400 transition-all shadow-lg shadow-primary-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue
                   <ChevronRight className="w-4 h-4" />
@@ -345,7 +347,7 @@ export default function ScoreChecker({ onOpenAuth }: ScoreCheckerProps) {
                 <div className="flex gap-3 mt-6">
                   <button
                     onClick={() => { setCurrentStep(1); setError(''); }}
-                    className="px-6 py-3.5 text-dark-300 font-medium border border-white/10 rounded-xl hover:bg-white/5 transition-all"
+                    className="px-6 py-3.5 text-dark-300 font-medium border border-white/10 rounded-xl hover:bg-white/5 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled={isChecking}
                   >
                     Back
                   </button>
@@ -413,6 +415,8 @@ export default function ScoreChecker({ onOpenAuth }: ScoreCheckerProps) {
                     Check Again
                   </button>
                 </div>
+
+                <ScoreSimulator baseScore={score} />
 
                 <ScoreHistory />
               </motion.div>

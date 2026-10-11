@@ -1,5 +1,15 @@
+# dependencies
 node_modules/
-.next/
+
+# build output
 dist/
-build/
+
+# local data & env (never commit)
+.env
+.env.*
+backend/.env
+.mongodb-data/
+
+# logs
+logs/
 *.log

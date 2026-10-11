@@ -10,7 +10,7 @@ export default function Footer() {
             <a href="#" className="flex items-center gap-2 mb-4">
               <Shield className="w-7 h-7 text-primary-500" />
               <span className="text-lg font-bold text-white">
-                Credit<span className="gradient-text">Wise</span>
+                Cred<span className="gradient-text">Wise</span>
               </span>
             </a>
             <p className="text-sm text-dark-400 leading-relaxed mb-4">
@@ -70,10 +70,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-dark-500">
-            © 2026 CreditWise. All rights reserved.
+            © 2026 CredWise. All rights reserved.
           </p>
           <p className="text-xs text-dark-600 text-center sm:text-right max-w-md">
-            CreditWise provides estimated scores for educational purposes. 
+            CredWise provides estimated scores for educational purposes. 
             Your actual score may vary by lender and credit bureau.
           </p>
         </div>

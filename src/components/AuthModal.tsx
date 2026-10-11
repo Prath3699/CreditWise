@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -50,6 +50,20 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     setError('');
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Escape-to-close + basic focus management
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    const firstInput = modalRef.current?.querySelector<HTMLElement>('input, button');
+    firstInput?.focus();
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -70,7 +84,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            <div className="bg-dark-900 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <div ref={modalRef} role="dialog" aria-modal="true" aria-label={isLogin ? 'Sign in to CredWise' : 'Create a CredWise account'} className="bg-dark-900 border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl">
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-white">
@@ -94,6 +108,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                       <input
+                        aria-label="Full Name"
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -111,6 +126,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                     <input
+                      aria-label="Email Address"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -128,6 +144,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-500" />
                     <input
+                      aria-label="Password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

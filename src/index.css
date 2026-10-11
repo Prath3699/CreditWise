@@ -89,3 +89,92 @@
 @keyframes score-fill {
   from { stroke-dashoffset: 283; }
 }
+
+/* ---- Light mode (toggled via .light on <html>) ----
+   The app is designed dark-first: every surface uses bg-dark-*, every label uses
+   text-white. Instead of overriding each utility, in light mode we redefine the
+   custom palette tokens themselves so all Tailwind utilities resolve to a clean
+   light scheme automatically. Brand accents are deepened for contrast on white. */
+html.light {
+  /* Neutral scale inverted: dark-* shades now map light->dark as needed */
+  --color-dark-950: #f8fafc; /* page background */
+  --color-dark-900: #ffffff; /* cards / raised surfaces */
+  --color-dark-800: #eef2f7; /* nested panels */
+  --color-dark-700: #e2e8f0; /* chips */
+
+  /* "white" text on dark -> near-black ink on light */
+  --color-white: #0f172a;
+
+  /* Muted body text stays readable on light surfaces */
+  --color-dark-300: #334155;
+  --color-dark-400: #475569;
+  --color-dark-500: #64748b;
+
+  /* Brand palette: deeper shades for AA contrast on white */
+  --color-primary-300: #1d4ed8;
+  --color-primary-400: #1d4ed8;
+  --color-primary-500: #1e40af;
+  --color-accent-400: #6d28d9;
+  --color-success: #047857;
+  --color-warning: #b45309;
+  --color-danger: #b91c1c;
+
+  /* Translucent white overlays -> translucent slate */
+  --tw-overlay-light: rgba(15, 23, 42, 0.05);
+}
+
+html.light body { background: #f8fafc; color: #0f172a; }
+
+/* Overlays/borders built from white alpha need explicit remap */
+html.light .bg-white\/5 { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .bg-white\/10 { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.07) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.1) !important; }
+html.light .border-white\/10,
+html.light .border-white\/5 { border-color: rgba(15, 23, 42, 0.12) !important; }
+html.light .ring-white\/10 { --tw-ring-color: rgba(15, 23, 42, 0.12) !important; }
+html.light .from-white\/10 { --tw-gradient-from: rgba(15, 23, 42, 0.06) var(--tw-gradient-from-position); }
+html.light .via-white\/10 { --tw-gradient-via: rgba(15, 23, 42, 0.04) var(--tw-gradient-via-position); }
+html.light .to-white\/10 { --tw-gradient-to: rgba(15, 23, 42, 0.06) var(--tw-gradient-to-position); }
+
+/* Gradient CTA buttons keep their vivid brand gradient + WHITE label text.
+   (Since we remapped --color-white above, restore white inside gradients.) */
+html.light [class*="bg-gradient-to"] { color: #ffffff; }
+html.light .text-white[class*="bg-gradient-to"],
+html.light a.text-white[class*="bg-gradient-to"],
+html.light button.text-white[class*="bg-gradient-to"],
+html.light span.text-white[class*="bg-gradient-to"] { color: #ffffff !important; }
+
+/* Decorative icon containers that sit on tinted dark chips stay white-on-color */
+html.light div[class*="bg-primary-500/"][class*="text-white"],
+html.light div[class*="bg-accent-"][class*="text-white"],
+html.light div[class*="bg-danger/"][class*="text-white"],
+html.light div[class*="bg-success/"][class*="text-white"],
+html.light div[class*="bg-warning/"][class*="text-white"] { color: #ffffff !important; }
+
+/* Navbar & footer stay as dark bands in both themes for brand consistency */
+html.light header { background-color: rgba(2, 6, 23, 0.92) !important; backdrop-filter: blur(12px); }
+html.light header .text-white { color: #f8fafc !important; }
+html.light header .text-dark-300 { color: #cbd5e1 !important; }
+html.light header .hover\:text-white:hover { color: #ffffff !important; }
+html.light header .bg-dark-900\/90 { background-color: rgba(2, 6, 23, 0.9) !important; }
+
+html.light footer { background-color: #0f172a !important; }
+html.light footer .text-white { color: #f1f5f9 !important; }
+html.light footer .text-dark-300,
+html.light footer .text-dark-400,
+html.light footer .text-dark-500 { color: #94a3b8 !important; }
+
+/* Avatars with brand rings keep white initials */
+html.light [class*="bg-gradient-to-br"] { color: #ffffff !important; }
+
+/* Soft shadows so white cards separate from the light page */
+html.light section > div[class*="bg-dark-900"],
+html.light .card-shadow { box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.12) !important; }
+
+/* Scrollbar-friendly input placeholders */
+html.light ::placeholder { color: #94a3b8 !important; }
+
+/* Smooth theme transition */
+html.light body,
+html.light * { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }

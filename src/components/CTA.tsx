@@ -56,7 +56,7 @@ export default function CTA({ onOpenAuth }: CTAProps) {
             <span className="gradient-text block mt-2">Your Financial Future?</span>
           </h2>
           <p className="mt-6 text-lg text-dark-400 max-w-2xl mx-auto">
-            Join over 2 million people who trust CreditWise to monitor and improve their credit scores. 
+            Join over 2 million people who trust CredWise to monitor and improve their credit scores. 
             Start your journey today — it's completely free.
           </p>
 

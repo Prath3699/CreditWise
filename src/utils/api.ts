@@ -65,6 +65,9 @@ export const scoresAPI = {
       body: JSON.stringify({ income, creditCards, loans, paymentHistory }),
     }),
 
+  simulate: (data: { currentScore: number; cardDebt?: number; creditLimit?: number; payoffAmount?: number; onTimePayments6mo?: number; newCreditInquiries?: number }) =>
+    apiCall('/scores/simulate', { method: 'POST', body: JSON.stringify(data) }),
+
   getHistory: () => apiCall('/scores/history'),
 
   getLatest: () => apiCall('/scores/latest'),
