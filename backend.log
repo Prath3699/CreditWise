@@ -1,4 +1,0 @@
-Server running on port 5000
-No local MongoDB found, falling back to in-memory DB (data resets on restart).
-Using in-memory MongoDB: mongodb://127.0.0.1:34109/credwise
-MongoDB Connected: 127.0.0.1
