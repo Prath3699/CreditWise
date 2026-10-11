@@ -22,7 +22,7 @@ app.use('/api/scores', scoreRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
-    message: 'CreditWise API is running',
+    message: 'CredWise API is running',
     timestamp: new Date().toISOString()
   });
 });
