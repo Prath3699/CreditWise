@@ -5,42 +5,48 @@ const tips = [
   {
     icon: Calendar,
     title: 'Pay Bills on Time',
-    description: 'Payment history makes up 35% of your score. Set up automatic payments to never miss a due date.',
+    description:
+      'Payment history makes up 35% of your score. Set up automatic payments to never miss a due date.',
     impact: '+50-100 pts',
     impactColor: 'text-success',
   },
   {
     icon: CreditCard,
     title: 'Lower Credit Utilization',
-    description: 'Keep your credit card balances below 30% of your limit. Aim for under 10% for the best scores.',
+    description:
+      'Keep your credit card balances below 30% of your limit. Aim for under 10% for the best scores.',
     impact: '+20-50 pts',
     impactColor: 'text-primary-400',
   },
   {
     icon: FileText,
     title: 'Check for Errors',
-    description: 'Review your credit report annually for errors. Dispute any inaccurate information immediately.',
+    description:
+      'Review your credit report annually for errors. Dispute any inaccurate information immediately.',
     impact: '+10-40 pts',
     impactColor: 'text-accent-400',
   },
   {
     icon: PiggyBank,
     title: 'Pay Down Debt',
-    description: 'Focus on reducing your overall debt. The debt snowball or avalanche methods can help you stay motivated.',
+    description:
+      'Focus on reducing your overall debt. The debt snowball or avalanche methods can help you stay motivated.',
     impact: '+30-60 pts',
     impactColor: 'text-success',
   },
   {
     icon: TrendingUp,
     title: 'Build Credit History',
-    description: 'The length of your credit history matters. Keep old accounts open even if you don\'t use them frequently.',
+    description:
+      "The length of your credit history matters. Keep old accounts open even if you don't use them frequently.",
     impact: '+10-30 pts',
     impactColor: 'text-warning',
   },
   {
     icon: Lightbulb,
     title: 'Diversify Credit Mix',
-    description: 'Having a mix of credit types (cards, loans, mortgage) shows you can manage different types of credit.',
+    description:
+      'Having a mix of credit types (cards, loans, mortgage) shows you can manage different types of credit.',
     impact: '+5-20 pts',
     impactColor: 'text-primary-300',
   },
@@ -67,11 +73,12 @@ export default function Tips() {
             Pro Tips
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-            Boost Your Score
-            <span className="gradient-text"> Fast</span>
+            Improve Your Score
+            <span className="gradient-text"> Over Time</span>
           </h2>
           <p className="mt-4 text-lg text-dark-400">
-            Follow these proven strategies to improve your credit score quickly and sustainably.
+            These habits matter most. Impact ranges are rough estimates, not guarantees — your
+            results depend on your full credit profile.
           </p>
         </motion.div>
 
@@ -91,9 +98,7 @@ export default function Tips() {
                 <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
                   <tip.icon className="w-6 h-6 text-primary-400" />
                 </div>
-                <span className={`text-sm font-semibold ${tip.impactColor}`}>
-                  {tip.impact}
-                </span>
+                <span className={`text-sm font-semibold ${tip.impactColor}`}>{tip.impact}</span>
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{tip.title}</h3>
               <p className="text-dark-400 text-sm leading-relaxed">{tip.description}</p>

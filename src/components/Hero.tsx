@@ -1,28 +1,20 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, TrendingUp, Shield, Zap } from 'lucide-react';
 import CreditScoreGauge from './CreditScoreGauge';
-import { useAuth } from '../context/AuthContext';
 
-interface HeroProps {
-  onOpenAuth: () => void;
-}
-
-export default function Hero({ onOpenAuth }: HeroProps) {
-  const { isAuthenticated } = useAuth();
-
+export default function Hero() {
   const handleCheckScore = () => {
-    if (isAuthenticated) {
-      document.getElementById('checker')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      onOpenAuth();
-    }
+    document.getElementById('checker')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-950">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-600/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-600/10 rounded-full blur-3xl animate-pulse-slow"
+          style={{ animationDelay: '1.5s' }}
+        />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-3xl" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
@@ -48,12 +40,14 @@ export default function Hero({ onOpenAuth }: HeroProps) {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
               Know Your
               <span className="block gradient-text mt-2">Credit Score</span>
-              <span className="block text-dark-300 text-3xl sm:text-4xl lg:text-5xl mt-2">in Seconds</span>
+              <span className="block text-dark-300 text-3xl sm:text-4xl lg:text-5xl mt-2">
+                in Seconds
+              </span>
             </h1>
 
             <p className="mt-6 text-lg text-dark-400 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-              Get your personalized credit score instantly. Understand your financial health, 
-              discover improvement tips, and unlock better rates on loans and credit cards.
+              Get an instant estimate of your credit score. See which factors matter, explore
+              improvement scenarios, and understand your credit — without a hard inquiry.
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-6 mt-8">
@@ -62,8 +56,8 @@ export default function Hero({ onOpenAuth }: HeroProps) {
                   <TrendingUp className="w-5 h-5 text-success" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold">2M+</p>
-                  <p className="text-dark-500 text-xs">Users Checked</p>
+                  <p className="text-white font-semibold">Free</p>
+                  <p className="text-dark-500 text-xs">Score estimate</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -71,8 +65,8 @@ export default function Hero({ onOpenAuth }: HeroProps) {
                   <Shield className="w-5 h-5 text-primary-400" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold">256-bit</p>
-                  <p className="text-dark-500 text-xs">Encrypted</p>
+                  <p className="text-white font-semibold">No impact</p>
+                  <p className="text-dark-500 text-xs">No hard inquiry</p>
                 </div>
               </div>
             </div>
@@ -84,7 +78,7 @@ export default function Hero({ onOpenAuth }: HeroProps) {
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 text-white font-semibold bg-gradient-to-r from-primary-600 to-accent-600 rounded-2xl shadow-xl shadow-primary-600/25 hover:shadow-primary-500/40 transition-shadow duration-300"
               >
-                {isAuthenticated ? 'Check My Score' : 'Get Started Free'}
+                Get Started Free
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               <motion.a
@@ -104,7 +98,29 @@ export default function Hero({ onOpenAuth }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
             className="flex justify-center lg:justify-end"
           >
-            <CreditScoreGauge score={742} />
+            <CreditScoreGauge
+              score={742}
+              details={[
+                {
+                  label: 'Payment History',
+                  value: '98%',
+                  percent: 98,
+                  color: '#10b981',
+                },
+                {
+                  label: 'Credit Utilization',
+                  value: '23%',
+                  percent: 23,
+                  color: '#3b82f6',
+                },
+                {
+                  label: 'Credit Age',
+                  value: '7 years',
+                  percent: 70,
+                  color: '#8b5cf6',
+                },
+              ]}
+            />
           </motion.div>
         </div>
       </div>

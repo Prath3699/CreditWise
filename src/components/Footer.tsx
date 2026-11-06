@@ -14,19 +14,32 @@ export default function Footer() {
               </span>
             </a>
             <p className="text-sm text-dark-400 leading-relaxed mb-4">
-              Your trusted partner for credit score monitoring and financial health management.
+              Free credit-score education, estimation, and simulation — built to make the numbers
+              easier to understand.
             </p>
             <div className="flex items-center gap-3">
-              <a href="#" className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
                 <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
                 <Github className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors">
+              <a
+                href="#"
+                className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-dark-400 hover:text-white hover:bg-white/10 transition-colors"
+              >
                 <Mail className="w-4 h-4" />
               </a>
             </div>
@@ -36,9 +49,17 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Product</h4>
             <ul className="space-y-2.5">
-              {['Credit Score', 'Credit Report', 'Score Simulator', 'Identity Protection', 'Credit Cards'].map((item) => (
+              {[
+                'Credit Score',
+                'Credit Report',
+                'Score Simulator',
+                'Identity Protection',
+                'Credit Cards',
+              ].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-sm text-dark-400 hover:text-white transition-colors">{item}</a>
+                  <a href="#" className="text-sm text-dark-400 hover:text-white transition-colors">
+                    {item}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -47,22 +68,36 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Resources</h4>
             <ul className="space-y-2.5">
-              {['Credit Guide', 'Score Factors', 'Improvement Tips', 'Blog', 'Help Center'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-dark-400 hover:text-white transition-colors">{item}</a>
-                </li>
-              ))}
+              {['Credit Guide', 'Score Factors', 'Improvement Tips', 'Blog', 'Help Center'].map(
+                (item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="text-sm text-dark-400 hover:text-white transition-colors"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
 
           <div>
             <h4 className="text-white font-semibold mb-4">Company</h4>
             <ul className="space-y-2.5">
-              {['About Us', 'Careers', 'Privacy Policy', 'Terms of Service', 'Contact'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-dark-400 hover:text-white transition-colors">{item}</a>
-                </li>
-              ))}
+              {['About Us', 'Careers', 'Privacy Policy', 'Terms of Service', 'Contact'].map(
+                (item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="text-sm text-dark-400 hover:text-white transition-colors"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </div>
@@ -70,11 +105,11 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-dark-500">
-            © 2026 CredWise. All rights reserved.
+            © {new Date().getFullYear()} CredWise. All rights reserved.
           </p>
           <p className="text-xs text-dark-600 text-center sm:text-right max-w-md">
-            CredWise provides estimated scores for educational purposes. 
-            Your actual score may vary by lender and credit bureau.
+            CredWise provides estimated scores for educational purposes. Your actual score may vary
+            by lender and credit bureau.
           </p>
         </div>
       </div>

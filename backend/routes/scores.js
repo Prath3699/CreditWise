@@ -1,5 +1,10 @@
 import express from 'express';
-import { calculateScore, getScoreHistory, getLatestScore, simulateScore } from '../controllers/scoreController.js';
+import {
+  calculateScore,
+  getScoreHistory,
+  getLatestScore,
+  simulateScore,
+} from '../controllers/scoreController.js';
 import { protect } from '../middleware/auth.js';
 
 const router = express.Router();

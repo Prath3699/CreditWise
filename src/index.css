@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-primary-50: #eff6ff;
@@ -33,12 +33,27 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
   }
-  
+
+  html.light {
+    color-scheme: light;
+  }
+
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family:
+      'Inter',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary-400);
+    outline-offset: 2px;
   }
 }
 
@@ -48,14 +63,14 @@
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .gradient-text {
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
+
   .score-gauge-bg {
     background: conic-gradient(
       from 135deg,
@@ -66,28 +81,40 @@
       transparent 180deg
     );
   }
-  
+
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
-  
+
   .animate-pulse-slow {
     animation: pulse-slow 3s ease-in-out infinite;
   }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 @keyframes score-fill {
-  from { stroke-dashoffset: 283; }
+  from {
+    stroke-dashoffset: 283;
+  }
 }
 
 /* ---- Light mode (toggled via .light on <html>) ----
@@ -123,58 +150,120 @@ html.light {
   --tw-overlay-light: rgba(15, 23, 42, 0.05);
 }
 
-html.light body { background: #f8fafc; color: #0f172a; }
+html.light body {
+  background: #f8fafc;
+  color: #0f172a;
+}
 
 /* Overlays/borders built from white alpha need explicit remap */
-html.light .bg-white\/5 { background-color: rgba(15, 23, 42, 0.05) !important; }
-html.light .bg-white\/10 { background-color: rgba(15, 23, 42, 0.08) !important; }
-html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.07) !important; }
-html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.1) !important; }
+html.light .bg-white\/5 {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+html.light .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+html.light .hover\:bg-white\/5:hover {
+  background-color: rgba(15, 23, 42, 0.07) !important;
+}
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(15, 23, 42, 0.1) !important;
+}
 html.light .border-white\/10,
-html.light .border-white\/5 { border-color: rgba(15, 23, 42, 0.12) !important; }
-html.light .ring-white\/10 { --tw-ring-color: rgba(15, 23, 42, 0.12) !important; }
-html.light .from-white\/10 { --tw-gradient-from: rgba(15, 23, 42, 0.06) var(--tw-gradient-from-position); }
-html.light .via-white\/10 { --tw-gradient-via: rgba(15, 23, 42, 0.04) var(--tw-gradient-via-position); }
-html.light .to-white\/10 { --tw-gradient-to: rgba(15, 23, 42, 0.06) var(--tw-gradient-to-position); }
+html.light .border-white\/5 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+html.light .ring-white\/10 {
+  --tw-ring-color: rgba(15, 23, 42, 0.12) !important;
+}
+html.light .from-white\/10 {
+  --tw-gradient-from: rgba(15, 23, 42, 0.06) var(--tw-gradient-from-position);
+}
+html.light .via-white\/10 {
+  --tw-gradient-via: rgba(15, 23, 42, 0.04) var(--tw-gradient-via-position);
+}
+html.light .to-white\/10 {
+  --tw-gradient-to: rgba(15, 23, 42, 0.06) var(--tw-gradient-to-position);
+}
 
 /* Gradient CTA buttons keep their vivid brand gradient + WHITE label text.
    (Since we remapped --color-white above, restore white inside gradients.) */
-html.light [class*="bg-gradient-to"] { color: #ffffff; }
-html.light .text-white[class*="bg-gradient-to"],
-html.light a.text-white[class*="bg-gradient-to"],
-html.light button.text-white[class*="bg-gradient-to"],
-html.light span.text-white[class*="bg-gradient-to"] { color: #ffffff !important; }
+html.light [class*='bg-gradient-to'] {
+  color: #ffffff;
+}
+html.light .text-white[class*='bg-gradient-to'],
+html.light a.text-white[class*='bg-gradient-to'],
+html.light button.text-white[class*='bg-gradient-to'],
+html.light span.text-white[class*='bg-gradient-to'] {
+  color: #ffffff !important;
+}
 
 /* Decorative icon containers that sit on tinted dark chips stay white-on-color */
-html.light div[class*="bg-primary-500/"][class*="text-white"],
-html.light div[class*="bg-accent-"][class*="text-white"],
-html.light div[class*="bg-danger/"][class*="text-white"],
-html.light div[class*="bg-success/"][class*="text-white"],
-html.light div[class*="bg-warning/"][class*="text-white"] { color: #ffffff !important; }
+html.light div[class*='bg-primary-500/'][class*='text-white'],
+html.light div[class*='bg-accent-'][class*='text-white'],
+html.light div[class*='bg-danger/'][class*='text-white'],
+html.light div[class*='bg-success/'][class*='text-white'],
+html.light div[class*='bg-warning/'][class*='text-white'] {
+  color: #ffffff !important;
+}
 
-/* Navbar & footer stay as dark bands in both themes for brand consistency */
-html.light header { background-color: rgba(2, 6, 23, 0.92) !important; backdrop-filter: blur(12px); }
-html.light header .text-white { color: #f8fafc !important; }
-html.light header .text-dark-300 { color: #cbd5e1 !important; }
-html.light header .hover\:text-white:hover { color: #ffffff !important; }
-html.light header .bg-dark-900\/90 { background-color: rgba(2, 6, 23, 0.9) !important; }
+/* Light-mode glass cards need a stronger surface than the dark translucent fill */
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.12);
+}
 
-html.light footer { background-color: #0f172a !important; }
-html.light footer .text-white { color: #f1f5f9 !important; }
+/* Footer stays as a dark band in both themes for brand consistency */
+html.light footer {
+  background-color: #0f172a !important;
+}
+html.light footer .text-white {
+  color: #f1f5f9 !important;
+}
 html.light footer .text-dark-300,
 html.light footer .text-dark-400,
-html.light footer .text-dark-500 { color: #94a3b8 !important; }
+html.light footer .text-dark-500 {
+  color: #94a3b8 !important;
+}
 
 /* Avatars with brand rings keep white initials */
-html.light [class*="bg-gradient-to-br"] { color: #ffffff !important; }
+html.light [class*='bg-gradient-to-br'] {
+  color: #ffffff !important;
+}
 
 /* Soft shadows so white cards separate from the light page */
-html.light section > div[class*="bg-dark-900"],
-html.light .card-shadow { box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.12) !important; }
+html.light section > div[class*='bg-dark-900'],
+html.light .card-shadow {
+  box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.12) !important;
+}
 
 /* Scrollbar-friendly input placeholders */
-html.light ::placeholder { color: #94a3b8 !important; }
+html.light ::placeholder {
+  color: #94a3b8 !important;
+}
 
-/* Smooth theme transition */
-html.light body,
-html.light * { transition: background-color .25s ease, color .25s ease, border-color .25s ease; }
+/* Smooth theme transition without animating every element on the page */
+body,
+nav,
+footer,
+.glass-card {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Respect the user's reduced-motion preference for CSS animations */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

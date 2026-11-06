@@ -1,76 +1,124 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import type { ScoreInputs, ScoreResult, SimulationInput, SimulationResult } from './scoring';
+
+const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+const REQUEST_TIMEOUT_MS = 15000;
+
+export class ApiError extends Error {
+  status: number;
+  errors?: string[];
+
+  constructor(message: string, status = 0, errors?: string[]) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+    this.errors = errors;
+  }
+}
 
 interface ApiOptions extends RequestInit {
   headers?: Record<string, string>;
 }
 
-const apiCall = async (endpoint: string, options: ApiOptions = {}) => {
-  const token = localStorage.getItem('token');
-  
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    ...options.headers,
-  };
+export interface AuthUser {
+  _id: string;
+  name: string;
+  email: string;
+}
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
+export interface ScoreHistoryEntry {
+  _id: string;
+  score: number;
+  createdAt: string;
+}
 
-  const config: RequestInit = {
-    ...options,
-    headers,
-  };
+export type ScoreResponse = ScoreResult & { historyId?: string };
+
+async function readResponse(response: Response): Promise<unknown> {
+  const text = await response.text();
+  if (!text) return null;
 
   try {
-    const response = await fetch(`${API_URL}${endpoint}`, config);
-    const data = await response.json();
+    return JSON.parse(text);
+  } catch {
+    return { message: text.slice(0, 300) };
+  }
+}
+
+const apiCall = async <T>(endpoint: string, options: ApiOptions = {}): Promise<T> => {
+  const { signal, ...rest } = options;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  const headers: Record<string, string> = { ...rest.headers };
+  if (rest.body !== undefined || (rest.method && rest.method !== 'GET')) {
+    headers['Content-Type'] = headers['Content-Type'] || 'application/json';
+  }
+
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...rest,
+      credentials: 'include',
+      headers,
+      signal: signal ?? controller.signal,
+    });
+    const data = (await readResponse(response)) as { message?: string; errors?: string[] } | null;
 
     if (!response.ok) {
       if (response.status === 401) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        window.dispatchEvent(new Event('credwise:unauthorized'));
       }
-      throw new Error(data.message || 'Something went wrong');
+      throw new ApiError(data?.message || 'Something went wrong', response.status, data?.errors);
     }
 
-    return data;
-  } catch (error: any) {
-    if (error.message === 'Failed to fetch') {
-      throw new Error('Cannot connect to server. Make sure the backend is running.');
+    return data as T;
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw new ApiError('The request timed out. Please try again.');
+    }
+    if (error instanceof TypeError && error.message === 'Failed to fetch') {
+      throw new ApiError('Cannot connect to the server. Make sure the backend is running.');
     }
     throw error;
+  } finally {
+    window.clearTimeout(timeout);
   }
 };
 
 export const authAPI = {
   register: (name: string, email: string, password: string) =>
-    apiCall('/auth/register', {
+    apiCall<AuthUser>('/auth/register', {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
     }),
 
   login: (email: string, password: string) =>
-    apiCall('/auth/login', {
+    apiCall<AuthUser>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     }),
 
-  getMe: () => apiCall('/auth/me'),
+  logout: () => apiCall<{ message: string }>('/auth/logout', { method: 'POST' }),
+
+  getMe: () => apiCall<AuthUser>('/auth/me'),
 };
 
 export const scoresAPI = {
-  calculate: (income: number, creditCards: number, loans: number, paymentHistory: string) =>
-    apiCall('/scores/calculate', {
+  calculate: (inputs: ScoreInputs) =>
+    apiCall<ScoreResponse>('/scores/calculate', {
       method: 'POST',
-      body: JSON.stringify({ income, creditCards, loans, paymentHistory }),
+      body: JSON.stringify(inputs),
     }),
 
-  simulate: (data: { currentScore: number; cardDebt?: number; creditLimit?: number; payoffAmount?: number; onTimePayments6mo?: number; newCreditInquiries?: number }) =>
-    apiCall('/scores/simulate', { method: 'POST', body: JSON.stringify(data) }),
+  simulate: (input: SimulationInput) =>
+    apiCall<SimulationResult>('/scores/simulate', {
+      method: 'POST',
+      body: JSON.stringify(input),
+    }),
 
-  getHistory: () => apiCall('/scores/history'),
+  getHistory: () => apiCall<ScoreHistoryEntry[]>('/scores/history'),
 
-  getLatest: () => apiCall('/scores/latest'),
+  getLatest: () => apiCall<ScoreHistoryEntry & { label: string }>('/scores/latest'),
 };
 
-export const healthCheck = () => apiCall('/health');
+export const healthCheck = () => apiCall<{ status: string }>('/health');

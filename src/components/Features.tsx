@@ -1,46 +1,51 @@
 import { motion } from 'framer-motion';
-import { Shield, TrendingUp, Bell, PieChart, Lock, Clock } from 'lucide-react';
+import { Clock, Lightbulb, Lock, PieChart, SlidersHorizontal, Zap } from 'lucide-react';
 
 const features = [
   {
-    icon: TrendingUp,
-    title: 'Real-Time Updates',
-    description: 'Get instant updates on your credit score changes with real-time monitoring from all major bureaus.',
+    icon: Zap,
+    title: 'Instant Estimate',
+    description:
+      'Get a deterministic estimate in seconds from utilization, credit age, payment history and credit mix.',
     color: 'text-success',
     bg: 'bg-success/10',
   },
   {
-    icon: Shield,
-    title: 'Fraud Protection',
-    description: 'Advanced fraud detection alerts you immediately when suspicious activity is detected on your accounts.',
+    icon: SlidersHorizontal,
+    title: 'Score Simulator',
+    description:
+      'Test payoff and on-time payment scenarios instantly — without touching your real credit.',
     color: 'text-primary-400',
     bg: 'bg-primary-400/10',
   },
   {
-    icon: Bell,
-    title: 'Smart Alerts',
-    description: 'Receive personalized notifications about important changes to your credit profile and score.',
+    icon: Clock,
+    title: 'History Tracking',
+    description: 'Save estimates to your account and watch how your score changes over time.',
     color: 'text-accent-400',
     bg: 'bg-accent-400/10',
   },
   {
     icon: PieChart,
-    title: 'Detailed Breakdown',
-    description: 'Understand exactly what factors affect your score with our comprehensive analysis and breakdown.',
+    title: 'Score Breakdown',
+    description:
+      'See how payment history, utilization and credit age contribute to your estimated score.',
     color: 'text-warning',
     bg: 'bg-warning/10',
   },
   {
     icon: Lock,
-    title: 'Bank-Level Security',
-    description: 'Your data is protected with 256-bit encryption and we never share your information with third parties.',
+    title: 'Private by Design',
+    description:
+      'Passwords are hashed, sessions use httpOnly cookies, and your data is never sold.',
     color: 'text-danger',
     bg: 'bg-danger/10',
   },
   {
-    icon: Clock,
-    title: 'History Tracking',
-    description: 'View your credit score history over time and track your progress toward your financial goals.',
+    icon: Lightbulb,
+    title: 'Learn as You Go',
+    description:
+      'Plain-English guidance on score ranges, risk levels and the habits that matter most.',
     color: 'text-primary-300',
     bg: 'bg-primary-300/10',
   },
@@ -86,11 +91,11 @@ export default function Features() {
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
             Everything You Need to
-            <span className="gradient-text"> Master Your Credit</span>
+            <span className="gradient-text"> Understand Your Credit</span>
           </h2>
           <p className="mt-4 text-lg text-dark-400">
-            Our comprehensive tools give you full visibility into your credit health, 
-            helping you make informed financial decisions.
+            Clear estimates, honest explanations, and tools that help you see what moves your score
+            — without pretending to be a credit bureau.
           </p>
         </motion.div>
 
@@ -111,9 +116,11 @@ export default function Features() {
             >
               {/* Hover glow */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               <div className="relative">
-                <div className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4`}>
+                <div
+                  className={`w-12 h-12 rounded-xl ${feature.bg} flex items-center justify-center mb-4`}
+                >
                   <feature.icon className={`w-6 h-6 ${feature.color}`} />
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>

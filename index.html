@@ -4,17 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Check your credit score for free with CredWise. Get instant estimates, personalized tips, and real-time monitoring to improve your financial health." />
+    <meta
+      name="description"
+      content="Check your estimated credit score for free with CredWise. Get instant estimates, personalized tips, and understand the factors that affect your credit."
+    />
+    <meta name="theme-color" content="#020617" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:title" content="CredWise - Check Your Credit Score" />
+    <meta
+      property="og:description"
+      content="Free credit-score estimation, simulation and educational guidance from CredWise."
+    />
+    <meta property="og:type" content="website" />
     <title>CredWise - Check Your Credit Score</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* 内联样式确保主题色立即生效，避免闪烁 */
+      /* Paint the correct theme colour before React mounts to prevent a flash. */
       html,
       body {
         margin: 0;
@@ -24,72 +34,72 @@
       }
       html.light,
       html.light body {
-        background-color: #ffffff !important;
-        color: #000000;
+        background-color: #f8fafc !important;
+        color: #0f172a;
       }
       html.dark,
       html.dark body {
-        background-color: #1a1a1a !important;
+        background-color: #020617 !important;
         color: #ffffff;
       }
     </style>
     <script>
-      // 在 React 加载前立即设置主题，避免闪烁
+      // Apply the saved theme before React loads (and accept theme messages in iframe previews).
       (function () {
-        const isInIframe = window.self !== window.top;
-
         function applyThemeToDOM(theme) {
-          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.remove('light', 'dark');
           document.documentElement.classList.add(theme);
-          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.setAttribute('data-theme', theme);
         }
 
-        if (isInIframe) {
-          // 监听父窗口主动推送的主题消息
-          window.addEventListener("message", function (event) {
-            if (event.data && typeof event.data.theme === "string") {
-              const theme = event.data.theme;
-              if (theme === "light" || theme === "dark") {
-                applyThemeToDOM(theme);
+        var stored = null;
+        try {
+          stored = localStorage.getItem('credwise-theme');
+        } catch (e) {
+          /* storage can be unavailable in private browsing */
+        }
+        applyThemeToDOM(stored === 'light' ? 'light' : 'dark');
+
+        if (window.self !== window.top) {
+          window.addEventListener('message', function (event) {
+            if (event.data && typeof event.data.theme === 'string') {
+              if (event.data.theme === 'light' || event.data.theme === 'dark') {
+                applyThemeToDOM(event.data.theme);
               }
             }
           });
-        } else {
-          // 非 iframe 环境，使用默认 light 主题
-          applyThemeToDOM("light");
         }
       })();
     </script>
-      <script>
+    <script>
+      // Report uncaught runtime errors to the preview host when embedded in an iframe.
       (function () {
         if (window.self === window.top) return;
         var reported = {};
-        window.addEventListener("error", function (event) {
-          // 资源加载失败的 error 事件没有 message，此处仅上报 JS 运行时错误
+        window.addEventListener('error', function (event) {
           if (!event || !event.message) return;
-          var key =
-            event.message + "|" + (event.filename || "") + "|" + (event.lineno || 0);
-          if (reported[key]) return; // 相同错误只上报一次，避免渲染循环刷屏
+          var key = event.message + '|' + (event.filename || '') + '|' + (event.lineno || 0);
+          if (reported[key]) return;
           reported[key] = true;
           try {
             window.parent.postMessage(
               {
-                type: "sandbox-runtime-error",
+                type: 'sandbox-runtime-error',
                 payload: {
                   message: String(event.message).slice(0, 500),
-                  filename: event.filename || "",
+                  filename: event.filename || '',
                   lineno: event.lineno || 0,
                   colno: event.colno || 0,
                   stack:
                     event.error && event.error.stack
                       ? String(event.error.stack).slice(0, 2000)
-                      : ""
-                }
+                      : '',
+                },
               },
-              "*"
+              '*',
             );
           } catch (e) {
-            /* 上报失败不影响页面运行 */
+            /* reporting failures must not affect the page */
           }
         });
       })();
@@ -97,6 +107,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; font-family: sans-serif; text-align: center">
+        CredWise needs JavaScript enabled to estimate your credit score.
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

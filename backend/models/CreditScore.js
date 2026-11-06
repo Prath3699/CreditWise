@@ -4,31 +4,34 @@ const creditScoreSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   score: {
     type: Number,
     required: true,
     min: 300,
-    max: 850
+    max: 850,
   },
   factors: {
     paymentHistory: Number,
     creditUtilization: Number,
     creditAge: Number,
     creditMix: Number,
-    newCredit: Number
+    newCredit: Number,
   },
   inputs: {
-    income: Number,
+    utilization: Number,
+    creditAgeYears: Number,
     creditCards: Number,
     loans: Number,
-    paymentHistory: String
+    paymentHistory: String,
+    // Kept for scores created before income was removed from the estimate.
+    income: Number,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 creditScoreSchema.index({ user: 1, createdAt: -1 });
