@@ -3,11 +3,7 @@ import User from '../models/User.js';
 import { AUTH_COOKIE } from '../config/auth.js';
 
 export const protect = async (req, res, next) => {
-  let token = req.cookies?.[AUTH_COOKIE];
-
-  if (!token && req.headers.authorization?.startsWith('Bearer')) {
-    token = req.headers.authorization.split(' ')[1];
-  }
+  const token = req.cookies?.[AUTH_COOKIE];
 
   if (!token) {
     return res.status(401).json({ message: 'Not authorized, no token' });
@@ -23,7 +19,9 @@ export const protect = async (req, res, next) => {
 
     req.user = user;
     return next();
-  } catch {
+  } catch (error) {
+    // Log the real reason server-side (e.g. missing JWT_SECRET, expired token).
+    console.error('Auth error:', error.message);
     return res.status(401).json({ message: 'Not authorized, token failed' });
   }
 };
