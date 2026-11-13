@@ -12,7 +12,6 @@ export default tseslint.config(
       'coverage/**',
       'node_modules/**',
       'backend/node_modules/**',
-      'archive/**',
       'deploy/**',
     ],
   },
