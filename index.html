@@ -16,7 +16,34 @@
       content="Free credit-score estimation, simulation and educational guidance from CredWise."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://credwise.example.com/" />
+    <meta property="og:image" content="https://credwise.example.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="CredWise - Free Credit Score Estimator" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CredWise - Check Your Credit Score" />
+    <meta
+      name="twitter:description"
+      content="Free credit-score estimation, simulation and educational guidance from CredWise."
+    />
+    <meta name="twitter:image" content="https://credwise.example.com/og-image.png" />
     <title>CredWise - Check Your Credit Score</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CredWise",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "description": "Free credit-score estimator, what-if simulator, and educational guidance.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -104,6 +131,13 @@
         });
       })();
     </script>
+    <!-- Plausible Analytics: privacy-friendly, cookieless, GDPR-compliant -->
+    <!-- Replace "credwise.example.com" with your real domain after deploying -->
+    <script
+      defer
+      data-domain="credwise.example.com"
+      src="https://plausible.io/js/script.js"
+    ></script>
   </head>
   <body>
     <div id="root"></div>

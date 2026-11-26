@@ -11,12 +11,19 @@ import Tips from './components/Tips';
 import FAQ from './components/FAQ';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
+import PrivacyPage from './components/PrivacyPage';
+import TermsPage from './components/TermsPage';
 
 const AuthModal = lazy(() => import('./components/AuthModal'));
 
 function AppContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const openAuth = () => setIsAuthModalOpen(true);
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '/';
+  const isPrivacy = pathname === '/privacy';
+  const isTerms = pathname === '/terms';
+  const isNotFound = !isPrivacy && !isTerms && pathname !== '/' && pathname !== '/index.html';
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -41,15 +48,39 @@ function AppContent() {
         </a>
         <Navbar onOpenAuth={openAuth} />
         <main id="main">
-          <Hero />
-          <Features />
-          <ScoreChecker onOpenAuth={openAuth} />
-          <ScoreRanges />
-          <Tips />
-          <FAQ />
-          <CTA />
+          {isPrivacy ? (
+            <PrivacyPage />
+          ) : isTerms ? (
+            <TermsPage />
+          ) : isNotFound ? (
+            <section className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+              <p className="text-sm font-semibold text-primary-400">404</p>
+              <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-white">Page not found</h1>
+              <p className="mt-3 text-sm text-dark-400 max-w-md">
+                The page you are looking for does not exist. Head back to check your credit score
+                estimate.
+              </p>
+              <a
+                href="/"
+                className="mt-6 px-6 py-3 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-500 rounded-xl transition-colors"
+              >
+                Back to Home
+              </a>
+            </section>
+          ) : (
+            <>
+              <Hero />
+              <Features />
+              <ScoreChecker onOpenAuth={openAuth} />
+              <ScoreRanges />
+              <Tips />
+              <FAQ />
+              <CTA />
+            </>
+          )}
         </main>
         <Footer />
+        <CookieBanner />
         {isAuthModalOpen && (
           <Suspense fallback={null}>
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
